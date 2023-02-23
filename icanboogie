@@ -1,0 +1,67 @@
+#!/usr/bin/env php
+<?php
+
+namespace ICanBoogie\Console;
+
+use Symfony\Component\Console\Application;
+use Symfony\Component\Console\CommandLoader\CommandLoaderInterface;
+
+use function ICanBoogie\boot;
+
+if (version_compare('8.1.0', PHP_VERSION_ID, '>')) {
+    fwrite(
+        STDERR,
+        sprintf(
+            'This version of ICanBoogie requires PHP >= 8.1.' . PHP_EOL .
+            'You are using PHP %s (%s).' . PHP_EOL,
+            PHP_VERSION,
+            PHP_BINARY
+        )
+    );
+
+    die(1);
+}
+
+if (!ini_get('date.timezone')) {
+    ini_set('date.timezone', 'UTC');
+}
+
+if (isset($GLOBALS['_composer_autoload_path'])) {
+    define('ICANBOOGIE_COMPOSER_INSTALL', $GLOBALS['_composer_autoload_path']);
+
+    unset($GLOBALS['_composer_autoload_path']);
+} else {
+    foreach (array(__DIR__ . '/../../autoload.php', __DIR__ . '/../vendor/autoload.php', __DIR__ . '/vendor/autoload.php') as $file) {
+        if (file_exists($file)) {
+            define('ICANBOOGIE_COMPOSER_INSTALL', $file);
+
+            break;
+        }
+    }
+
+    unset($file);
+}
+
+if (!defined('ICANBOOGIE_COMPOSER_INSTALL')) {
+    fwrite(
+        STDERR,
+        'You need to set up the project dependencies using Composer:' . PHP_EOL . PHP_EOL .
+        '    composer install' . PHP_EOL . PHP_EOL .
+        'You can learn all about Composer on https://getcomposer.org/.' . PHP_EOL
+    );
+
+    die(1);
+}
+
+require ICANBOOGIE_COMPOSER_INSTALL;
+
+exit((static function () {
+
+    $app = boot();
+    $command_loader = $app->service_for_id('console.command_loader', CommandLoaderInterface::class);
+
+    $console = new Application();
+    $console->setCommandLoader($command_loader);
+    $console->run();
+
+})());
