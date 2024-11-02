@@ -27,8 +27,8 @@ abstract class CommandTestCase extends TestCase
         string $command_name,
         string $command_class,
         array $input = [],
-        array $row = null,
-        string $regex = null,
+        ?array $row = null,
+        ?string $regex = null,
     ): void {
         $tester = $this->getTester($command_name, $command_class);
         $tester->execute($input);
