@@ -10,7 +10,7 @@ Enables adding console commands to ICanBoogie.
 
 #### Installation
 
-```bash
+```shell
 composer require icanboogie/console
 ```
 
@@ -23,16 +23,10 @@ composer require icanboogie/console
 ## Code of Conduct
 
 This project adheres to a [Contributor Code of Conduct](CODE_OF_CONDUCT.md). By participating in
-this project and its community, you are expected to uphold this code.
+this project and its community, you're expected to uphold this code.
 
 
 
 ## Contributing
 
-Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
-
-
-
-## License
-
-**icanboogie/console** is released under the [BSD-3-Clause](LICENSE).
+See [CONTRIBUTING](CONTRIBUTING.md) for details.

@@ -2,6 +2,7 @@
 
 namespace ICanBoogie\Console\Test;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Command\LazyCommand;
@@ -17,12 +18,11 @@ abstract class CommandTestCase extends TestCase
 {
 
     /**
-     * @dataProvider provideExecute
-     *
      * @param class-string<Command> $command_class
      * @param string[] $input
      * @param string[] $row
      */
+    #[DataProvider('provideExecute')]
     public function testExecute(
         string $command_name,
         string $command_class,

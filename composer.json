@@ -3,7 +3,7 @@
   "type": "library",
   "description": "Enables console commands",
   "homepage": "https://icanboogie.org/",
-  "license": "BSD-3-Clause",
+  "license": "MIT",
   "version": "6.0",
   "authors": [
     {
@@ -24,7 +24,10 @@
     "platform": {
       "php": "8.2.0"
     },
-    "sort-packages": true
+    "sort-packages": true,
+    "allow-plugins": {
+      "icanboogie/autoconfig": true
+    }
   },
   "minimum-stability": "dev",
   "prefer-stable": true,
@@ -33,12 +36,9 @@
     "icanboogie/icanboogie": "^6.0",
     "symfony/console": "^7.0"
   },
-  "require-dev": {
-    "phpunit/phpunit": "^10.5"
-  },
   "autoload": {
     "psr-4": {
-      "ICanBoogie\\Console\\": "lib"
+      "ICanBoogie\\Console\\": "src"
     }
   },
   "extra": {
@@ -46,7 +46,7 @@
       "config-path": "config"
     }
   },
-  "scripts": {
-    "post-autoload-dump": "ICanBoogie\\Autoconfig\\Hooks::on_autoload_dump"
+  "require-dev": {
+    "phpunit/phpunit": "^11.4"
   }
 }
